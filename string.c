@@ -48,7 +48,7 @@ int string_copy(const char *restrict src, char *restrict dst)
 size_t string_find(const char *restrict word, FILE *restrict fd)
 {
     size_t location = 0;
-    size_t ws = stringsize(word);
+    size_t ws = string_size(word);
     size_t word_count = 0;
     char c;
     while (!feof(fd))
