@@ -234,7 +234,10 @@ int file_insert_string(const char *filename, const off_t offset, const char *str
   if(!fp) return -1;
   fseek(fp, 0, SEEK_END);
   size_t s=ftell(fp); // file size
-  if(s < offset) fclose(fp);
+  if(s < offset) {
+    fclose(fp);
+    return -2;
+  }
   fseek(fp, offset, SEEK_SET); // printf("Seeking file to: %ld\n", ftell(fp));
   fputs(string, fp);
   fclose(fp);
