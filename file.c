@@ -219,3 +219,24 @@ int file_compare(const char *sname, const char *dname)
         }
     }
 }
+
+int file_trunc_to_size(const char *filename, size_t s) {
+  if(file_exist(filename)) {
+    truncate(filename, s);
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+int file_insert_string(const char *filename, const off_t offset, const char *string) {
+  FILE *fp = fopen(filename, "r+");
+  if(!fp) return -1;
+  fseek(fp, 0, SEEK_END);
+  size_t s=ftell(fp); // file size
+  if(s < offset) fclose(fp);
+  fseek(fp, offset, SEEK_SET); // printf("Seeking file to: %ld\n", ftell(fp));
+  fputs(string, fp);
+  fclose(fp);
+  return 0;
+}
