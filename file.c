@@ -284,7 +284,7 @@ int file_compare(const char *sname, const char *dname)
   }
 
   {
-    char sa, db;
+    char sa=0, db=0;
     while (!feof(s) && !feof(d))
     {
       sa = fgetc(s);
